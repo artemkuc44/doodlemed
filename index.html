@@ -873,6 +873,172 @@
                 });
             });
         });
+
+        // Add this to your existing script section
+
+    // History management
+    function updateHistory(page, topic = '', subtopic = '') {
+        const state = { page, topic, subtopic };
+        let url = '#' + page;
+        
+        if (topic) url += '/' + topic;
+        if (subtopic) url += '/' + encodeURIComponent(subtopic);
+        
+        history.pushState(state, '', url);
+    }
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', function(event) {
+        if (event.state) {
+            const { page, topic, subtopic } = event.state;
+            
+            if (page === 'landing') {
+                showLanding(false); // false = don't update history
+            } else if (page === 'subtopics') {
+                showSubtopics(topic, false);
+            } else if (page === 'content') {
+                const subtopicData = subtopicsData[topic]?.find(s => s.title === subtopic);
+                if (subtopicData) {
+                    currentTopic = topic;
+                    showContent(subtopicData, false);
+                }
+            }
+        } else {
+            // No state, go to landing
+            showLanding(false);
+        }
+    });
+
+    // Update your existing functions to manage history
+    function showLanding(updateHistoryFlag = true) {
+        showPage('landing');
+        if (updateHistoryFlag) {
+            updateHistory('landing');
+        }
+    }
+
+    function showSubtopics(topic, updateHistoryFlag = true) {
+        currentTopic = topic;
+        showPage('subtopics');
+        
+        document.getElementById('subtopic-title').textContent = 
+            topic.charAt(0).toUpperCase() + topic.slice(1) + ' Topics';
+        
+        const container = document.getElementById('subtopics-container');
+        container.innerHTML = '';
+        
+        subtopicsData[topic].forEach(subtopic => {
+            const card = document.createElement('div');
+            card.className = 'subtopic-card';
+            card.onclick = () => showContent(subtopic);
+            
+            card.innerHTML = `
+                <h4 class="subtopic-title">${subtopic.title}</h4>
+                <div class="subtopic-meta">
+                    <span class="meta-item">
+                        ${subtopic.hasVideo ? '🎥 Video Available' : '📝 Study Notes'}
+                    </span>
+                    <span class="meta-item">
+                        📚 Detailed Content
+                    </span>
+                </div>
+            `;
+            
+            container.appendChild(card);
+        });
+        
+        if (updateHistoryFlag) {
+            updateHistory('subtopics', topic);
+        }
+    }
+
+    function showContent(subtopic, updateHistoryFlag = true) {
+        currentSubtopic = subtopic;
+        showPage('content');
+        
+        // Set article title and meta information
+        document.getElementById('content-title').textContent = subtopic.title;
+        document.getElementById('topic-badge').textContent = 
+            currentTopic.charAt(0).toUpperCase() + currentTopic.slice(1);
+        
+        // Set video badge
+        const videoBadge = document.getElementById('video-badge');
+        videoBadge.textContent = subtopic.hasVideo ? '🎥 Video Content' : '📝 Text Content';
+        
+        // Set video info
+        document.getElementById('video-title-display').textContent = 
+            subtopic.videoTitle || subtopic.title;
+        document.getElementById('video-description-display').textContent = 
+            subtopic.videoDescription || 'Educational content for ' + subtopic.title;
+        
+        // Handle video content (same as before)
+        const videoContent = document.getElementById('video-content');
+        
+        if (subtopic.hasVideo && subtopic.videoId) {
+            videoContent.innerHTML = `
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/${subtopic.videoId}" 
+                        title="${subtopic.videoTitle || subtopic.title}"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            `;
+        } else if (subtopic.hasVideo) {
+            videoContent.innerHTML = `
+                <div class="video-placeholder">
+                    <div style="font-size: 3rem;">🎥</div>
+                    <div style="font-size: 1.3rem; font-weight: 600;">Video Content Coming Soon</div>
+                    <small style="opacity: 0.8;">Educational video for ${subtopic.title}</small>
+                </div>
+            `;
+        } else {
+            videoContent.innerHTML = `
+                <div class="video-placeholder">
+                    <div style="font-size: 3rem;">📚</div>
+                    <div style="font-size: 1.3rem; font-weight: 600;">Detailed Study Material</div>
+                    <small style="opacity: 0.8;">Comprehensive notes and learning resources for ${subtopic.title}</small>
+                </div>
+            `;
+        }
+        
+        if (updateHistoryFlag) {
+            updateHistory('content', currentTopic, subtopic.title);
+        }
+        
+        // Scroll to top of content
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set initial state
+        if (!history.state) {
+            updateHistory('landing');
+        }
+        
+        // Handle initial URL if there's a hash
+        const hash = window.location.hash.slice(1);
+        if (hash) {
+            const parts = hash.split('/');
+            const page = parts[0];
+            const topic = parts[1];
+            const subtopic = decodeURIComponent(parts[2] || '');
+            
+            if (page === 'subtopics' && topic && subtopicsData[topic]) {
+                showSubtopics(topic, false);
+            } else if (page === 'content' && topic && subtopic) {
+                const subtopicData = subtopicsData[topic]?.find(s => s.title === subtopic);
+                if (subtopicData) {
+                    currentTopic = topic;
+                    showContent(subtopicData, false);
+                }
+            }
+        }
+    });
     </script>
 </body>
 </html>
