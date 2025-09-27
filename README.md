@@ -1,5 +1,5 @@
-# DOODLEMED - Medical Education Platform
-
+# [DOODLEMED](https://doodlemed.online/) - Medical Education Platform
+https://doodlemed.online/ <br>
 **A Collaborative Project:**  
 *Content created by medical students*  
 *Making medical education more accessible, one bite-sized lesson at a time.*
@@ -83,7 +83,7 @@ This is a collaborative project between medical students and computer science st
 
 ## Usage Instructions
 
-1. Open `index.html` in a web browser
+1. Open [Doodlemed.online](https://doodlemed.online/) in a web browser
 2. Navigate through topics using the interactive cards
 3. Access videos and PDF materials for each topic
 4. Use the back navigation to return to previous sections
