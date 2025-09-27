@@ -155,12 +155,46 @@ nav {
 }
 
 .histology-icon {
-    background-image: url('histImage.jpg');
+    background-image: url('../histology/histIcon.png');
     background-size: cover;
     background-position: center;
-    background-color: transparent; /* optional: removes background tint */
+    background-color: transparent;
 }
 
+.embryology-icon {
+    background-image: url('../histology/embIcon.png');
+    background-size: cover;
+    background-position: center;
+    background-color: transparent;
+}
+
+.lymphatic-icon {
+    background: linear-gradient(135deg, #e3f2fd, #2196f3);
+    position: relative;
+}
+
+.lymphatic-icon::after {
+    content: '🔬';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+}
+
+.circulatory-icon {
+    background: linear-gradient(135deg, #ffebee, #f44336);
+    position: relative;
+}
+
+.circulatory-icon::after {
+    content: '❤️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+}
 
 .topic-title {
     font-size: 1.8rem;
@@ -335,27 +369,33 @@ nav {
     line-height: 1.6;
 }
 
-/* ===== NOTES SECTION ===== */
-.notes-section {
+/* ===== PDF SECTION STYLES ===== */
+.pdf-section {
     padding: 10px 40px 40px;
 }
 
-.notes-title {
+.pdf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.pdf-title {
     color: #2c5aa0;
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 30px;
-    margin-top: 0;
-    padding-top: 0;
-    padding-bottom: 15px;
-    border-bottom: 3px solid #e0e7ff;
+    margin: 0;
     position: relative;
+    padding-bottom: 8px;
 }
 
-.notes-title::after {
+.pdf-title::after {
     content: '';
     position: absolute;
-    bottom: -3px;
+    bottom: 0;
     left: 0;
     width: 100px;
     height: 3px;
@@ -363,91 +403,149 @@ nav {
     border-radius: 2px;
 }
 
-.notes-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #444;
+.pdf-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.notes-content h3 {
+.download-btn,
+.fullscreen-btn,
+.view-pdf-btn,
+.download-pdf-btn,
+.view-tab-btn {
+    background: #2c5aa0;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.download-btn:hover,
+.fullscreen-btn:hover,
+.view-pdf-btn:hover,
+.download-pdf-btn:hover,
+.view-tab-btn:hover {
+    background: #1e3d6f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(44, 90, 160, 0.3);
+}
+
+.fullscreen-btn {
+    background: #4a90e2;
+}
+
+.fullscreen-btn:hover {
+    background: #2c5aa0;
+}
+
+.view-tab-btn {
+    background: #16a085;
+}
+
+.view-tab-btn:hover {
+    background: #138d75;
+}
+
+.pdf-container {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    background: #f8fafc;
+    margin-bottom: 20px;
+}
+
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+    background: white;
+}
+
+.pdf-fallback {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.fallback-content {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 400px;
+}
+
+.fallback-content h3 {
     color: #2c5aa0;
     font-size: 1.5rem;
-    margin: 35px 0 20px;
-    font-weight: 700;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #e0e7ff;
+    margin-bottom: 15px;
 }
 
-.notes-content h4 {
-    color: #1e3d6f;
-    font-size: 1.25rem;
-    margin: 25px 0 15px;
-    font-weight: 600;
+.fallback-content p {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
 }
 
-.notes-content ul {
-    margin: 20px 0;
-    padding-left: 30px;
-}
-
-.notes-content li {
+.view-pdf-btn {
+    margin-right: 10px;
     margin-bottom: 10px;
-    line-height: 1.7;
 }
 
-.notes-content p {
-    margin-bottom: 18px;
-    line-height: 1.8;
+.download-pdf-btn {
+    background: #4a90e2;
 }
 
-.notes-content strong {
-    color: #2c5aa0;
-    font-weight: 600;
+.pdf-info {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid #2c5aa0;
 }
 
-/* ===== IMAGE RESPONSIVENESS ===== */
-/* Global image rules for responsiveness */
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Specific rules for inline images in content */
-.notes-content img {
-    max-width: 100%;
-    height: auto !important;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    margin: 15px auto;
-}
-
-/* Fix for images in flex containers */
-.notes-content div[style*="display: flex"] {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin: 20px 0;
-}
-
-.notes-content div[style*="display: flex"] img {
-    width: 100%;
-    max-width: 400px;
+.pdf-note {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
     margin: 0;
 }
 
-.notes-content div[style*="display: flex"] div {
-    width: 100%;
+.pdf-note strong {
+    color: #2c5aa0;
 }
 
-/* Center images that are standalone */
-.notes-content div[style*="text-align: center"] img {
-    margin: 20px auto;
-    max-width: 100%;
-    width: auto;
+/* Fullscreen specific styles */
+.pdf-container:fullscreen {
+    border-radius: 0;
+    background: #000;
 }
 
-/* Table Styles */
+.pdf-container:fullscreen .pdf-viewer {
+    border-radius: 0;
+    height: 100vh;
+}
+
+/* ===== TABLE STYLES ===== */
 table {
     border-collapse: collapse;
     margin: 25px 0;
@@ -528,17 +626,13 @@ table tr:hover {
         padding: 20px 25px 10px;
     }
 
-    .notes-section {
+    .pdf-section {
         padding: 10px 25px 30px;
     }
 
     .video-placeholder {
         height: 220px;
         font-size: 1.1rem;
-    }
-
-    .notes-content {
-        font-size: 1rem;
     }
 
     .article-meta {
@@ -555,14 +649,24 @@ table tr:hover {
         padding: 25px 20px;
     }
 
-    /* Better image handling on tablets */
-    .notes-content div[style*="display: flex"] {
+    /* PDF specific tablet styles */
+    .pdf-header {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
     }
 
-    .notes-content div[style*="display: flex"] img {
-        max-width: 100%;
+    .pdf-title {
+        font-size: 1.8rem;
+    }
+
+    .pdf-container {
+        height: 600px;
+    }
+
+    .pdf-controls {
         width: 100%;
+        justify-content: flex-start;
     }
 
     /* Table responsiveness */
@@ -627,11 +731,11 @@ table tr:hover {
         padding: 15px 20px 8px;
     }
 
-    .notes-section {
+    .pdf-section {
         padding: 8px 20px 25px;
     }
 
-    .notes-title {
+    .pdf-title {
         font-size: 1.6rem;
     }
 
@@ -644,44 +748,51 @@ table tr:hover {
         padding: 20px 15px;
     }
 
-    .notes-content h3 {
+    /* PDF specific mobile styles */
+    .pdf-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .pdf-controls {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .pdf-container {
+        height: 500px;
+    }
+
+    .download-btn,
+    .fullscreen-btn,
+    .view-pdf-btn,
+    .download-pdf-btn,
+    .view-tab-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .pdf-info {
+        padding: 15px;
+    }
+
+    .pdf-note {
+        font-size: 0.95rem;
+    }
+
+    .fallback-content {
+        padding: 30px 15px;
+    }
+
+    .fallback-content h3 {
         font-size: 1.3rem;
     }
 
-    .notes-content h4 {
-        font-size: 1.1rem;
-    }
-
-    /* Mobile-specific image rules */
-    .notes-content img {
-        max-width: 100%;
-        width: 100% !important;
-        height: auto !important;
-        margin: 15px 0;
-    }
-
-    /* Force all flex containers to stack vertically on mobile */
-    .notes-content div[style*="display: flex"] {
-        flex-direction: column !important;
-        align-items: center;
-        text-align: left;
-    }
-
-    .notes-content div[style*="display: flex"] div {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
-    .notes-content div[style*="display: flex"] img {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 10px 0 !important;
-    }
-
-    /* Override any fixed widths in inline styles */
-    .notes-content [style*="width"] img {
-        width: 100% !important;
-        max-width: 100% !important;
+    .fallback-content p {
+        font-size: 1rem;
     }
 
     /* Table mobile responsiveness */
@@ -695,19 +806,6 @@ table tr:hover {
     table th, table td {
         padding: 10px 8px;
         min-width: 120px;
-    }
-
-    /* Ensure centered images don't exceed container */
-    .notes-content div[style*="text-align: center"] {
-        text-align: center;
-        max-width: 100%;
-        overflow: hidden;
-    }
-
-    .notes-content div[style*="text-align: center"] img {
-        max-width: 100%;
-        width: 100% !important;
-        height: auto !important;
     }
 }
 
@@ -729,7 +827,7 @@ table tr:hover {
         font-size: 1.7rem;
     }
 
-    .notes-title {
+    .pdf-title {
         font-size: 1.4rem;
     }
 
@@ -738,38 +836,28 @@ table tr:hover {
         font-size: 0.9rem;
     }
 
-    .notes-content {
-        font-size: 0.95rem;
+    .pdf-container {
+        height: 400px;
     }
 
-    .notes-content h3 {
-        font-size: 1.2rem;
-    }
-
-    .notes-content h4 {
-        font-size: 1rem;
-    }
-
-    /* Ensure all images fit on very small screens */
-    .notes-content img {
-        max-width: 100%;
-        width: 100% !important;
-        height: auto !important;
+    .download-btn,
+    .fullscreen-btn,
+    .view-pdf-btn,
+    .download-pdf-btn,
+    .view-tab-btn {
+        font-size: 0.9rem;
+        padding: 10px;
     }
 }
 
 /* Large Screen Styles */
 @media (min-width: 1024px) {
     .container {
-        max-width: 800px;
+        max-width: 900px;
     }
 
     .article-title {
         font-size: 3.2rem;
-    }
-
-    .notes-content {
-        font-size: 1.15rem;
     }
 
     .topic-card {
@@ -789,17 +877,12 @@ table tr:hover {
         font-size: 1.15rem;
     }
 
-    /* Better image layouts on large screens */
-    .notes-content div[style*="display: flex"] {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-start;
+    .pdf-container {
+        height: 800px;
     }
 
-    .notes-content div[style*="display: flex"] img {
-        max-width: 350px;
-        margin: 10px;
+    .pdf-title {
+        font-size: 2.2rem;
     }
 }
 
@@ -814,7 +897,9 @@ table tr:hover {
         transform: translateX(4px);
     }
 
-    .back-btn:active {
+    .back-btn:active,
+    .download-btn:active,
+    .fullscreen-btn:active {
         background: #1e3d6f;
         transform: translateY(0);
     }
@@ -823,14 +908,17 @@ table tr:hover {
 /* Loading and Transitions */
 .topic-card,
 .subtopic-card,
-.back-btn {
+.back-btn,
+.download-btn,
+.fullscreen-btn {
     will-change: transform;
 }
 
 /* Print Styles */
 @media print {
     .back-btn,
-    .video-section {
+    .video-section,
+    .pdf-controls {
         display: none;
     }
     
@@ -848,8 +936,13 @@ table tr:hover {
         border-radius: 0;
     }
 
-    .notes-content img {
-        max-width: 100%;
+    .pdf-container {
+        box-shadow: none;
         page-break-inside: avoid;
+    }
+
+    .pdf-info {
+        background: white;
+        border: 1px solid #ccc;
     }
 }

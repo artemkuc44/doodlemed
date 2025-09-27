@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histology - DOODLEMED</title>
+    <meta name="description" content="Comprehensive histology education for medical students. Learn about tissue structure, organ systems, and cellular components through engaging content and videos.">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="../doodlemedLogo.png" alt="doodleMed Logo" class="logo-img">
+                <h1>DOODLE MED</h1>
+            </div>
+            <p class="tagline">Bite-sized medical education for students</p>
+        </header>
+
+        <nav>
+            <button class="back-btn" onclick="window.location.href='../index.html'">← Back to Home</button>
+        </nav>
+
+        <main id="main-content">
+            <h1 class="page-title">Histology</h1>
+            
+            <div class="topics-container">
+                <article class="topic-card" onclick="window.location.href='lymphatic-system.html'" tabindex="0">
+                    <div class="topic-icon lymphatic-icon" aria-hidden="true"></div>
+                    <div class="topic-content">
+                        <h2 class="topic-title">Lymphatic System</h2>
+                        <p class="topic-description">Discover the body's defense network - lymph nodes, spleen, and immune protection</p>
+                    </div>
+                </article>
+
+                <article class="topic-card" onclick="window.location.href='circulatory-system.html'" tabindex="0">
+                    <div class="topic-icon circulatory-icon" aria-hidden="true"></div>
+                    <div class="topic-content">
+                        <h2 class="topic-title">Circulatory System</h2>
+                        <p class="topic-description">Learn about cardiovascular anatomy - detailed vessel structure, capillary types, and heart wall composition!</p>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/navigation.js"></script>
+</body>
+</html>

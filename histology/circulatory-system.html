@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circulatory System - Histology - DOODLEMED</title>
+    <meta name="description" content="Comprehensive study of circulatory system histology including heart structure, blood vessels, and cardiovascular tissue components.">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="../doodlemedLogo.png" alt="doodleMed Logo" class="logo-img">
+                <h1>DOODLE MED</h1>
+            </div>
+            <p class="tagline">Bite-sized medical education for students</p>
+        </header>
+
+        <nav>
+            <button class="back-btn" onclick="window.location.href='histology.html'">← Back to Histology</button>
+        </nav>
+
+        <main>
+            <article class="content-article">
+                <!-- Article Header -->
+                <header class="article-header">
+                    <h1 class="article-title">Circulatory System</h1>
+                    <div class="article-meta">
+                        <span class="meta-badge">Histology</span>
+                        <span>📚 Study Material</span>
+                        <span>🎥 Video Content</span>
+                        <span>📄 PDF Notes</span>
+                    </div>
+                </header>
+
+                <!-- Video Section -->
+                <section class="video-section">
+                    <div class="video-info">
+                        <h2 class="video-title">The Heart - Structure and Function</h2>
+                    </div>
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/zHPMpLipDTo" 
+                            title="The Heart - Structure and Function"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </section>
+
+                <!-- PDF Section -->
+                <section class="pdf-section">
+                    <div class="pdf-header">
+                        <h2 class="pdf-title">Study Notes - Circulatory System</h2>
+                        <div class="pdf-controls">
+                            <a href="pdfs/circulatory-system-notes.pdf" target="_blank" class="view-tab-btn">
+                                🔗 View in New Tab
+                            </a>
+                            <a href="pdfs/circulatory-system-notes.pdf" download class="download-btn">
+                                📥 Download PDF
+                            </a>
+                            <button class="fullscreen-btn" onclick="toggleFullscreen()">
+                                ⛶ Fullscreen
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="pdf-container">
+                        <iframe 
+                            src="pdfs/circulatory-system-notes.pdf#toolbar=1&navpanes=1&scrollbar=1" 
+                            type="application/pdf"
+                            title="Circulatory System Study Notes"
+                            class="pdf-viewer">
+                        </iframe>
+                        
+                        <!-- Fallback for browsers that don't support PDF viewing -->
+                        <div class="pdf-fallback">
+                            <div class="fallback-content">
+                                <h3>📄 PDF Viewer Not Supported</h3>
+                                <p>Your browser doesn't support inline PDF viewing.</p>
+                                <a href="pdfs/circulatory-system-notes.pdf" target="_blank" class="view-pdf-btn">
+                                    Open PDF in New Tab
+                                </a>
+                                <a href="pdfs/circulatory-system-notes.pdf" download class="download-pdf-btn">
+                                    Download PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pdf-info">
+                        <p class="pdf-note">
+                            <strong>Note:</strong> The PDF contains comprehensive study notes on the circulatory system including blood vessels, heart anatomy, and cardiovascular histology. 
+                            Use the controls above to download or view in fullscreen for the best reading experience.
+                        </p>
+                    </div>
+                </section>
+            </article>
+        </main>
+    </div>
+
+    <script>
+        // Fullscreen functionality
+        function toggleFullscreen() {
+            const pdfContainer = document.querySelector('.pdf-container');
+            const pdfViewer = document.querySelector('.pdf-viewer');
+            
+            if (!document.fullscreenElement) {
+                pdfContainer.requestFullscreen().then(() => {
+                    pdfViewer.style.height = '100vh';
+                }).catch(err => {
+                    console.log('Error attempting to enable fullscreen:', err.message);
+                });
+            } else {
+                document.exitFullscreen().then(() => {
+                    pdfViewer.style.height = '';
+                });
+            }
+        }
+
+        // Handle fullscreen change events
+        document.addEventListener('fullscreenchange', () => {
+            const pdfViewer = document.querySelector('.pdf-viewer');
+            if (!document.fullscreenElement) {
+                pdfViewer.style.height = '';
+            }
+        });
+
+        // Check if PDF is supported and show/hide fallback
+        window.addEventListener('load', () => {
+            const pdfViewer = document.querySelector('.pdf-viewer');
+            const fallback = document.querySelector('.pdf-fallback');
+            
+            // Simple check for PDF support
+            if (navigator.mimeTypes['application/pdf'] || navigator.plugins['Chrome PDF Viewer']) {
+                fallback.style.display = 'none';
+            } else {
+                pdfViewer.style.display = 'none';
+                fallback.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
